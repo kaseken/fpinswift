@@ -7,7 +7,7 @@ import Testing
     case let .Cons(x, .Cons(2, .Cons(4, _))): x
     case .Nil: 42
     case let .Cons(x, .Cons(y, .Cons(3, .Cons(4, _)))): x + y
-    case let .Cons(h, t): h + t.sum()
+    case let .Cons(h, t): h + t.sumFoldRight()
     }
     #expect(result == 1 + 2)
 }
