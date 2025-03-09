@@ -1,5 +1,6 @@
 import Foundation
 
+// NOTE: Equatable for convenience of testing.
 indirect enum List<A: Equatable>: Equatable {
     case Nil
     case Cons(head: A, tail: List<A>)
