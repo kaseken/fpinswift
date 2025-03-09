@@ -94,6 +94,7 @@ extension List {
         }
     }
 
+    // Exercise 3.10
     func foldLeft<B>(_ acc: B, _ f: (B, A) -> B) -> B {
         switch self {
         case .Nil: acc
@@ -136,7 +137,7 @@ extension List {
 
     // Exercise 3.20
     func flatMap<B>(_ f: (A) -> List<B>) -> List<B> {
-        map(f).foldRight(List<B>.Nil) { $0.append($1) }
+        foldRight(List<B>.Nil) { f($0).append($1) }
     }
 
     // Exercise 3.21
@@ -144,7 +145,7 @@ extension List {
         flatMap { (x: A) -> List<A> in f(x) ? .Cons(head: x, tail: .Nil) : .Nil }
     }
 
-    // Exercise 3.22
+    // Exercise 3.22, 3.23
     func merge<B, C>(_ other: List<B>, _ f: (A, B) -> C) -> List<C> {
         switch (self, other) {
         case let (.Cons(h, t), .Cons(oh, ot)):
@@ -158,8 +159,7 @@ extension List {
     func hasSubsequence(_ target: List<A>) -> Bool {
         func f(_ list: List<A>, _ subTarget: List<A>) -> Bool {
             switch (list, subTarget) {
-            case let (.Cons(h, t), .Cons(sh, st)):
-                h == sh ? f(t, st) : t.hasSubsequence(target)
+            case let (.Cons(h, t), .Cons(sh, st)): h == sh ? f(t, st) : f(t, target)
             case (_, .Nil): true
             case (.Nil, .Cons): false
             }

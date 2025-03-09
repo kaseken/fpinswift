@@ -13,6 +13,17 @@ import Testing
     #expect(List<Double>.apply(1, 2, 3, 0).productFoldLeft() == 0)
 }
 
+// Exercise 3.1
+@Test func testMatching() throws {
+    let result = switch List<Int>.apply(1, 2, 3, 4, 5) {
+    case let .Cons(x, .Cons(2, .Cons(4, _))): x
+    case .Nil: 42
+    case let .Cons(x, .Cons(y, .Cons(3, .Cons(4, _)))): x + y
+    case let .Cons(h, t): h + t.sumFoldRight()
+    }
+    #expect(result == 1 + 2)
+}
+
 @Test func testTail() throws {
     #expect(List<Int>.Nil.tail() == nil)
     #expect(List<Int>.apply(1, 2, 3, 4).tail() == List<Int>.apply(2, 3, 4))
@@ -128,9 +139,11 @@ import Testing
     #expect(list.hasSubsequence(List<Int>.apply(1, 2, 3, 4, 5)))
     #expect(list.hasSubsequence(List<Int>.apply(1, 2, 3, 4)))
     #expect(list.hasSubsequence(List<Int>.apply(2, 3, 4, 5)))
+    #expect(list.hasSubsequence(List<Int>.apply(4, 5)))
     #expect(list.hasSubsequence(List<Int>.apply(3)))
     #expect(list.hasSubsequence(List<Int>.Nil))
     #expect(!list.hasSubsequence(List<Int>.apply(0)))
     #expect(!list.hasSubsequence(List<Int>.apply(1, 2, 3, 5)))
     #expect(!list.hasSubsequence(List<Int>.apply(3, 2, 1)))
+    #expect(!list.hasSubsequence(List<Int>.apply(4, 5, 6)))
 }
