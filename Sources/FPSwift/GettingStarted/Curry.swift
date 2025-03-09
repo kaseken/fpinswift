@@ -1,3 +1,4 @@
+// Exercise 2.3
 func curry<A, B, C>(f: @escaping (A, B) -> C) -> (A) -> (B) -> C {
-    { a in { b in f(a, b) } }
+    { (a: A) in { (b: B) in f(a, b) } }
 }

@@ -1,3 +1,4 @@
+// Exercise 2.1
 func fib(_ n: Int) -> Int {
     func f(x: Int, a: Int, b: Int) -> Int {
         if x == n {
