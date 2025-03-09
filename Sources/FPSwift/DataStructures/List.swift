@@ -52,4 +52,13 @@ extension List {
         case let .Cons(_, tail): .Cons(head: head, tail: tail)
         }
     }
+
+    // Exercise 3.4
+    func drop(_ n: Int) -> List<A> {
+        if n > 0 {
+            tail()?.drop(n - 1) ?? .Nil
+        } else {
+            self
+        }
+    }
 }
