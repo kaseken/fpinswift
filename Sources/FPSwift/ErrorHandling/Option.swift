@@ -53,18 +53,14 @@ extension [Double] {
 
     // Exercise 4.2
     func variance() -> Option<Double> {
-        mean().map { mean in
-            map { x in (x - mean) * (x - mean) }.reduce(0, +) / Double(count)
-        }
+        mean().flatMap { m in map { x in (x - m) * (x - m) }.mean() }
     }
 }
 
 // Exercise 4.4
 func sequence<A>(as: List<Option<A>>) -> Option<List<A>> {
     `as`.foldRight(Option.Some(List<A>.Nil)) { (a: Option<A>, acc: Option<List<A>>) in
-        acc.flatMap { (acc: List<A>) in
-            a.map { (a: A) in List<A>.Cons(head: a, tail: acc) }
-        }
+        map2(acc, a) { acc, a in List<A>.Cons(head: a, tail: acc) }
     }
 }
 
@@ -74,8 +70,6 @@ func traverse<A, B>(
     _ f: @escaping (A) -> Option<B>
 ) -> Option<List<B>> {
     `as`.foldRight(Option.Some(List<B>.Nil)) { (a: A, acc: Option<List<B>>) in
-        acc.flatMap { (acc: List<B>) in
-            f(a).map { (b: B) in List<B>.Cons(head: b, tail: acc) }
-        }
+        map2(acc, f(a)) { acc, b in List<B>.Cons(head: b, tail: acc) }
     }
 }
