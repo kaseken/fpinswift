@@ -1,4 +1,6 @@
-indirect enum List<A> {
+import Foundation
+
+indirect enum List<A: Equatable>: Equatable {
     case Nil
     case Cons(head: A, tail: List<A>)
 
@@ -30,6 +32,24 @@ extension List<Double> {
         case .Nil: 1.0
         case .Cons(0, _): 0.0
         case let .Cons(head, tail): head * tail.product()
+        }
+    }
+}
+
+extension List {
+    // Exercise 3.2
+    func tail() -> List? {
+        return switch self {
+        case .Nil: nil
+        case let .Cons(_, tail): tail
+        }
+    }
+
+    // Exercise 3.3
+    func setHead(_ head: A) -> List<A> {
+        switch self {
+        case .Nil: .Nil
+        case let .Cons(_, tail): .Cons(head: head, tail: tail)
         }
     }
 }

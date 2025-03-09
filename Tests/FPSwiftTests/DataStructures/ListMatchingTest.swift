@@ -1,6 +1,7 @@
 @testable import FPSwift
 import Testing
 
+// Exercise 3.1
 @Test func testListMatching() throws {
     let result = switch List<Int>.apply(1, 2, 3, 4, 5) {
     case let .Cons(x, .Cons(2, .Cons(4, _))): x
