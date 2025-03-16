@@ -48,11 +48,11 @@ struct EitherTest {
             if let i = Int(x) { .Right(i) } else { .Left("Error_\(x)") }
         }
         #expect(
-            traverse(List<E>.apply("1", "2", "3"), f) ==
+            traverse(List.apply("1", "2", "3"), f) ==
                 Either<String, List<Int>>.Right(List<Int>.apply(1, 2, 3))
         )
         #expect(
-            traverse(List<E>.apply("1", "HOGE", "3"), f) ==
+            traverse(List.apply("1", "HOGE", "3"), f) ==
                 Either<String, List<Int>>.Left("Error_HOGE")
         )
     }
