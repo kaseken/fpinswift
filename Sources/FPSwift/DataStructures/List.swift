@@ -5,11 +5,11 @@ indirect enum List<A: Equatable>: Equatable {
     case Nil
     case Cons(head: A, tail: List<A>)
 
-    static func apply<T>(_ args: T...) -> List<T> {
+    static func apply(_ args: A...) -> List<A> {
         apply(ArraySlice(args))
     }
 
-    private static func apply<T>(_ args: ArraySlice<T>) -> List<T> {
+    private static func apply(_ args: ArraySlice<A>) -> List<A> {
         if let head = args.first {
             .Cons(head: head, tail: .apply(args.dropFirst()))
         } else {
